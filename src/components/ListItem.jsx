@@ -8,21 +8,41 @@ const ListItem = ({ task, onClick }) => {
 
 	const statusName = { todo: "To do", inProcess: "In process", done: "Done" };
 
+	const statusStyle = {
+		todo: {
+			background: "#4f46e5",
+			color: "#fff",
+		},
+		inProcess: {
+			background: "#f59e0b",
+			color: "#fff",
+		},
+		done: {
+			background: "#eef2ff",
+			color: "#4f46e5",
+		},
+	};
+
 	const style = {
 		listItem: css({
 			position: "relative",
 			width: "100%",
-			// border: theme.border,
-			padding: "10px",
-			borderRadius: "10px",
+			border: theme.border,
+			padding: "20px",
+			borderRadius: "24px",
 			cursor: "pointer",
-			boxShadow: `3px 3px 7px 1px ${theme.shadowColor}`,
+			background: `${theme.bg}`,
+			boxShadow: `${theme.boxShadow}`,
+			"&:hover": {
+				boxShadow: `0 2px 4px -2px  ${theme.accentColor}, 0 4px 8px -2px ${theme.accentColor}`,
+			},
 		}),
 		title: css({
 			paddingRight: "20px",
-			marginBottom: "10px",
-			fontSize: "20px",
-			fontWeight: "500",
+			marginBottom: "20px",
+			fontSize: "32px",
+			fontWeight: "600",
+			background: `${theme.bg}`,
 		}),
 		descriptionText: css({
 			marginTop: "10px",
@@ -37,34 +57,42 @@ const ListItem = ({ task, onClick }) => {
 			textAlign: "end",
 		}),
 		priority: css({
+			padding: "3px 10px",
 			position: "absolute",
-			top: "10px",
-			right: "10px",
-			width: "15px",
-			height: "15px",
-			borderRadius: "50%",
+			top: "15px",
+			right: "15px",
+			fontSize: "12px",
+			fontWeight: 500,
+			borderRadius: "18px",
 			"&.high": {
-				background: "#e21313ff",
-				boxShadow: "0 0 3px 1px #e21313ff",
+				background: "#fad4d7ff",
+				color: "#f43f5e",
 			},
 			"&.medium": {
-				background: "#43b800ff",
-				boxShadow: "0 0 3px 1px #43b800ff",
+				background: "#d6f8e1ff",
+				color: "#22c55e",
 			},
 			"&.low": {
-				background: "#1115e0ff",
-				boxShadow: "0 0 3px 1px #1115e0ff",
+				background: "#eef2ff",
+				color: "#4f46e5",
 			},
+		}),
+		status: css({
+			padding: "5px 10px",
+			borderRadius: "24px",
+			...statusStyle[task.status],
 		}),
 	};
 
 	return (
 		<div css={style.listItem} onClick={() => onClick(task)}>
 			<h2 css={style.title}>{task.title}</h2>
-			<div className={task.priority} css={style.priority}></div>
+			<div className={task.priority} css={style.priority}>
+				{task.priority.toUpperCase()}
+			</div>
 			{setting.listItem.showStatus ? (
-				<p>
-					<span>{"Status:"}</span> {statusName[task.status]}
+				<p css={{ marginBottom: "35px" }}>
+					<span>{"Status:"}</span> <span css={style.status}>{statusName[task.status]}</span>
 				</p>
 			) : (
 				""

@@ -12,7 +12,7 @@ const ListProvider = ({ children }) => {
 			priority: "medium",
 			status: "todo",
 			subTasks: [
-				{ title: "subTask1", enable: true },
+				{ title: "subTask1", enable: false },
 				{ title: "subTask2", enable: true },
 			],
 		},

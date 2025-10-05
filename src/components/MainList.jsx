@@ -10,10 +10,14 @@ const MainList = ({ onTaskClick }) => {
 
 	const style = {
 		listWrapper: css({
+			padding: "16px",
 			display: "flex",
 			flexDirection: "column",
 			gap: "10px",
 			width: "100%",
+			background: `${theme.primaryColor}`,
+			borderRadius: "32px",
+			border: `${theme.border}`,
 		}),
 		list: css({
 			flex: "1 0 auto",

@@ -24,25 +24,36 @@ const CustomCheckbox = ({ id, data, onChange }) => {
 		}),
 		checkboxBlock: css({
 			position: "relative",
-			width: "15px",
-			height: "15px",
+			width: "30px",
+			height: "30px",
 			border: `${theme.border}`,
-			// borderWidth: "2px",
 			borderRadius: "3px",
 			cursor: "pointer",
+			borderRadius: "7px",
+			boxShadow: `${theme.boxShadow}`,
+			background: `${theme.secondatyColor}`,
+			transition: "0.3s",
+			"&:hover": {
+				background: `${theme.bg}`,
+			},
 			"& svg": {
 				position: "absolute",
 				width: "100%",
 				top: "50%",
 				left: "50%",
 				transform: "translate(-50%, -50%)",
+				fill: `${theme.accentColor}`,
 			},
 		}),
+		textInput: css({
+			width: "100%",
+			height: "100%",
+			background: "transparent",
+			font: "inherit",
+			textDecoration: `${data.enable ? "line-through" : ""}`,
+			opacity: `${data.enable ? "0.5" : "1"}`,
+		}),
 	};
-
-	// useEffect(() => {
-	// 	onChange(id, currentData);
-	// }, [currentData]);
 
 	return (
 		<div css={style.main}>
@@ -58,6 +69,7 @@ const CustomCheckbox = ({ id, data, onChange }) => {
 				</div>
 			</label>
 			<input
+				css={style.textInput}
 				type="text"
 				value={currentData.title}
 				onChange={(event) => {

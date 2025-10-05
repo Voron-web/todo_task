@@ -48,7 +48,6 @@ function App() {
 					<MainList onTaskClick={(data) => toggleMenu(data)}></MainList>
 					{isTaskOpen ? <TaskWindow data={taskWindowData.current} isShow={isShowMenu} closeModal={() => toggleMenu()}></TaskWindow> : null}
 				</div>
-				<button onClick={toggleMenu}>Show</button>
 			</div>
 		</div>
 	);

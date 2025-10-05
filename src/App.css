@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Ultra&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 * {
   padding: 0;
@@ -89,6 +91,11 @@ h6 {
 }
 
 
+body {
+  /* font-family: "Plus Jakarta Sans", sans-serif; */
+  font-family: "Funnel Display", sans-serif;
+  line-height: normal;
+}
 
 .wrapper {
   margin: 0 auto;
