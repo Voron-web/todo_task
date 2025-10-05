@@ -8,6 +8,7 @@ const CustomInput = ({ placeholder = "", value, onChange }) => {
 			height: "100%",
 			background: "transparent",
 			font: "inherit",
+			color: "inherit",
 		}),
 	};
 	return (

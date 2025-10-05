@@ -77,6 +77,7 @@ const TaskWindow = ({ data, isShow, closeModal }) => {
 			right: "20px",
 			zIndex: "500",
 			border: `${theme.border}`,
+			color: `${theme.textColor}`,
 			width: "min(600px, 100%)",
 			animation: `${isShow ? openWindow : closeWindow} 0.7s ease forwards`,
 		}),
@@ -91,6 +92,7 @@ const TaskWindow = ({ data, isShow, closeModal }) => {
 			width: "100%",
 			fontSize: "40px",
 			fontWeight: 600,
+			color: `${theme.titleColor}`,
 		}),
 		subTitle: css({
 			marginLeft: "7px",
@@ -118,8 +120,6 @@ const TaskWindow = ({ data, isShow, closeModal }) => {
 			display: "flex",
 			alignItems: "center",
 			justifyContent: "center",
-			// fontSize: "40px",
-			// fontWeight: "300",
 			border: `${theme.border}`,
 			borderRadius: "50%",
 			background: `${theme.primaryColor}`,
@@ -133,6 +133,7 @@ const TaskWindow = ({ data, isShow, closeModal }) => {
 			"& svg": {
 				width: "25px",
 				stroke: `${theme.textColor}`,
+				fill: `${theme.textColor}`,
 			},
 		}),
 
@@ -170,7 +171,7 @@ const TaskWindow = ({ data, isShow, closeModal }) => {
 									stroke-linejoin="round"
 									fill="none">
 									<g id="SVGRepo_iconCarrier">
-										<polyline points="4 13 9 18 20 7" stroke="#19e946ff"></polyline>
+										<polyline points="4 13 9 18 20 7" stroke="#19e946ff" fill="none"></polyline>
 									</g>
 								</svg>
 							</div>
@@ -178,11 +179,11 @@ const TaskWindow = ({ data, isShow, closeModal }) => {
 						{data ? (
 							<div css={style.button} onClick={() => deleteTask(data.id)}>
 								<svg fill="#e92020ff" stroke="#e92020ff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="delete-alt-2" class="icon glyph">
-									<g>
+									<g fill="#e92020ff">
 										<path d="M17,4V5H15V4H9V5H7V4A2,2,0,0,1,9,2h6A2,2,0,0,1,17,4Z" stroke="#e92020ff"></path>
 										<path
 											d="M20,6H4A1,1,0,0,0,4,8H5.07l.87,12.14a2,2,0,0,0,2,1.86h8.14a2,2,0,0,0,2-1.86L18.93,8H20a1,1,0,0,0,0-2ZM13,17a1,1,0,0,1-2,0V11a1,1,0,0,1,2,0Z"
-											stroke="#e92020ff"></path>
+											stroke="#e92020ff "></path>
 									</g>
 								</svg>
 							</div>

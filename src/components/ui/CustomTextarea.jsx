@@ -14,6 +14,7 @@ const CustomTextarea = ({ placeholder = "", value, onChange }) => {
 			font: "inherit",
 			background: `${theme.primaryColor}`,
 			borderRadius: "20px",
+			color: "inherit",
 		}),
 	};
 	return (

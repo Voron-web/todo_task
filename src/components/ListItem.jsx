@@ -33,6 +33,7 @@ const ListItem = ({ task, onClick }) => {
 			cursor: "pointer",
 			background: `${theme.bg}`,
 			boxShadow: `${theme.boxShadow}`,
+			color: `${theme.textColor}`,
 			"&:hover": {
 				boxShadow: `0 2px 4px -2px  ${theme.accentColor}, 0 4px 8px -2px ${theme.accentColor}`,
 			},
@@ -43,6 +44,7 @@ const ListItem = ({ task, onClick }) => {
 			fontSize: "32px",
 			fontWeight: "600",
 			background: `${theme.bg}`,
+			color: `${theme.titleColor}`,
 		}),
 		descriptionText: css({
 			marginTop: "10px",

@@ -50,6 +50,7 @@ const CustomCheckbox = ({ id, data, onChange }) => {
 			height: "100%",
 			background: "transparent",
 			font: "inherit",
+			color: "inherit",
 			textDecoration: `${data.enable ? "line-through" : ""}`,
 			opacity: `${data.enable ? "0.5" : "1"}`,
 		}),

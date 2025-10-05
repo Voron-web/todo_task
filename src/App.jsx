@@ -1,7 +1,6 @@
 import "./App.css";
 import { useThemeSet } from "./context/ThemeProvider";
 import { css } from "@emotion/react";
-import { dark } from "./themes/themes";
 import Header from "./components/Header";
 import TaskWindow from "./components/TaskWindow";
 import MainList from "./components/MainList";
@@ -15,11 +14,10 @@ function App() {
 
 	const style = {
 		base: css({
-			minWidth: "100vw",
 			minHeight: "100vh",
 			background: `${theme.bg}`,
-			width: "100px",
-			height: "100px",
+			overflowX: "hidden",
+			paddingBottom: "30px",
 		}),
 		baseBlock: css({
 			marginTop: "50px",
