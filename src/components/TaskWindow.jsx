@@ -243,7 +243,7 @@ const TaskWindow = ({ data, isShow, closeModal }) => {
 						<div css={style.subTasks}>
 							<SubTasks data={currentData.subTasks} onChange={(value) => changeData("subTasks", value)}></SubTasks>
 						</div>
-						{data ? <div css={style.date}>Create: {new Date(data.createDate).toLocaleDateString()}</div> : null}
+						{data ? <div css={style.date}>Create: {new Date(data.createDate).toLocaleString()}</div> : null}
 					</div>
 				</div>
 			</div>

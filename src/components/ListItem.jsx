@@ -85,6 +85,7 @@ const ListItem = ({ task, onClick }) => {
 			...statusStyle[task.status],
 		}),
 		subTasks: css({
+			marginTop: "20px",
 			display: "flex",
 			flexDirection: "column",
 			gap: "3px",
@@ -112,13 +113,7 @@ const ListItem = ({ task, onClick }) => {
 				""
 			)}
 			{setting.listItem.showDescription ? <p css={style.descriptionText}>{task.description}</p> : ""}
-			{setting.listItem.showDate ? (
-				<p css={style.date}>
-					<span>{"Create:"}</span> {new Date(task.createDate).toLocaleDateString()}
-				</p>
-			) : (
-				""
-			)}
+
 			{setting.listItem.showSubTask ? (
 				<div css={style.subTasks}>
 					{task.length !== 0
@@ -128,6 +123,13 @@ const ListItem = ({ task, onClick }) => {
 						: null}
 				</div>
 			) : null}
+			{setting.listItem.showDate ? (
+				<p css={style.date}>
+					<span>{"Create:"}</span> {new Date(task.createDate).toLocaleString()}
+				</p>
+			) : (
+				""
+			)}
 		</div>
 	);
 };
