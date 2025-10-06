@@ -27,11 +27,11 @@ const TaskWindow = ({ data, isShow, closeModal }) => {
 	];
 
 	const changeData = (type, value) => {
-		console.log(value);
 		setCurrentData((prev) => ({
 			...prev,
 			[type]: value,
 		}));
+		validateForm();
 	};
 
 	const validateForm = () => {
@@ -49,12 +49,28 @@ const TaskWindow = ({ data, isShow, closeModal }) => {
 			const date = new Date();
 			setCurrentData((prev) => ({ ...prev, id: date, createDate: date }));
 			addTask({ ...currentData, id: date, createDate: date });
-			closeModal();
+			filterAndCloseModal();
 		}
 	};
 
 	const deleteTask = (id) => {
 		removeTask(id);
+		filterAndCloseModal();
+	};
+
+	const filterAndCloseModal = () => {
+		if (currentData.subTasks.lenght != 0) {
+			const filteredSubTask = currentData.subTasks.filter((item) => {
+				return item.title !== "";
+			});
+			const newData = { ...currentData, subTasks: filteredSubTask };
+
+			setCurrentData(newData);
+			if (data && validateForm()) {
+				changeTask(newData);
+			}
+		}
+
 		closeModal();
 	};
 
@@ -68,6 +84,7 @@ const TaskWindow = ({ data, isShow, closeModal }) => {
 			animation: `${isShow ? openShadow : closeShadow} 0.7s ease forwards`,
 		}),
 		taskWindow: css({
+			overflow: "hidden",
 			padding: "15px",
 			borderRadius: "24px",
 			background: `${theme.primaryColor}`,
@@ -78,10 +95,14 @@ const TaskWindow = ({ data, isShow, closeModal }) => {
 			zIndex: "500",
 			border: `${theme.border}`,
 			color: `${theme.textColor}`,
-			width: "min(600px, 100%)",
+			width: "min(600px, 90%)",
+			maxHeight: "90%",
 			animation: `${isShow ? openWindow : closeWindow} 0.7s ease forwards`,
 		}),
 		contentBlock: css({
+			maxHeight: "calc(90vh - 100px)",
+			height: "100%",
+			overflowY: "auto",
 			padding: "20px",
 			background: `${theme.bg}`,
 			borderRadius: "20px",
@@ -143,18 +164,18 @@ const TaskWindow = ({ data, isShow, closeModal }) => {
 			width: "100%",
 			background: `${theme.primaryColor}`,
 		}),
+		date: css({
+			marginTop: "20px",
+			width: "100%",
+			display: "flex",
+			justifyContent: "flex-end",
+			opacity: 0.5,
+			fontSize: "13px",
+		}),
 	};
 
-	useEffect(() => {
-		if (validateForm()) {
-			if (data) {
-				changeTask(currentData);
-			}
-		}
-	}, [currentData]);
-
 	return (
-		<div css={style.taskWrapper} onClick={closeModal}>
+		<div css={style.taskWrapper} onClick={filterAndCloseModal}>
 			<div css={style.taskWindow} onClick={(e) => e.stopPropagation()}>
 				<div css={style.btnBlock}>
 					<div>
@@ -162,9 +183,7 @@ const TaskWindow = ({ data, isShow, closeModal }) => {
 							<div css={style.button} onClick={addNewTask}>
 								<svg
 									viewBox="0 0 24 24"
-									role="img"
 									xmlns="http://www.w3.org/2000/svg"
-									aria-labelledby="okIconTitle"
 									stroke="#2dc90eff"
 									stroke-width="4"
 									stroke-linecap="round"
@@ -178,7 +197,7 @@ const TaskWindow = ({ data, isShow, closeModal }) => {
 						) : null}
 						{data ? (
 							<div css={style.button} onClick={() => deleteTask(data.id)}>
-								<svg fill="#e92020ff" stroke="#e92020ff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="delete-alt-2" class="icon glyph">
+								<svg fill="#e92020ff" stroke="#e92020ff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="delete-alt-2">
 									<g fill="#e92020ff">
 										<path d="M17,4V5H15V4H9V5H7V4A2,2,0,0,1,9,2h6A2,2,0,0,1,17,4Z" stroke="#e92020ff"></path>
 										<path
@@ -189,7 +208,7 @@ const TaskWindow = ({ data, isShow, closeModal }) => {
 							</div>
 						) : null}
 					</div>
-					<div css={style.button} onClick={closeModal}>
+					<div css={style.button} onClick={filterAndCloseModal}>
 						<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 							<g>
 								<path d="M20.7457 3.32851C20.3552 2.93798 19.722 2.93798 19.3315 3.32851L12.0371 10.6229L4.74275 3.32851C4.35223 2.93798 3.71906 2.93798 3.32854 3.32851C2.93801 3.71903 2.93801 4.3522 3.32854 4.74272L10.6229 12.0371L3.32856 19.3314C2.93803 19.722 2.93803 20.3551 3.32856 20.7457C3.71908 21.1362 4.35225 21.1362 4.74277 20.7457L12.0371 13.4513L19.3315 20.7457C19.722 21.1362 20.3552 21.1362 20.7457 20.7457C21.1362 20.3551 21.1362 19.722 20.7457 19.3315L13.4513 12.0371L20.7457 4.74272C21.1362 4.3522 21.1362 3.71903 20.7457 3.32851Z"></path>
@@ -198,35 +217,33 @@ const TaskWindow = ({ data, isShow, closeModal }) => {
 					</div>
 				</div>
 				<div css={style.contentBlock}>
-					<div css={style.title}>
-						<CustomInput placeholder="Enter a title" value={currentData.title} onChange={(value) => changeData("title", value)}></CustomInput>
-					</div>
-					<p css={style.subTitle}>Description</p>
-					<div css={style.description}>
-						<CustomTextarea
-							placeholder="Enter your description here"
-							value={currentData.description}
-							onChange={(value) => changeData("description", value)}></CustomTextarea>
-					</div>
-
-					<div css={style.separator}></div>
-					<div css={{ display: "flex", gap: "10px", marginTop: "20px", alignItems: "center" }}>
-						<p css={style.subTitle}>Status</p>
-						<div>
-							<CustomSelect value={currentData.status} data={statusData} onChange={(value) => changeData("status", value)}></CustomSelect>
+					<div>
+						<div css={style.title}>
+							<CustomInput placeholder="Enter a title" value={currentData.title} onChange={(value) => changeData("title", value)}></CustomInput>
 						</div>
-					</div>
-					<div css={{ display: "flex", gap: "10px", marginTop: "20px", alignItems: "center" }}>
-						<p css={style.subTitle}>Priority</p>
-						<CustomSelect value={currentData.priority} data={priorityData} onChange={(value) => changeData("priority", value)}></CustomSelect>
-					</div>
-					<div css={style.separator}></div>
-
-					<div css={{ marginTop: "20px" }}>
-						<p css={style.subTitle}>Subtasks</p>
-					</div>
-					<div css={style.subTasks}>
-						<SubTasks data={data ? currentData.subTasks : []} onChange={(value) => changeData("subTasks", value)}></SubTasks>
+						<p css={style.subTitle}>Description</p>
+						<div css={style.description}>
+							<CustomTextarea
+								placeholder="Enter your description here"
+								value={currentData.description}
+								onChange={(value) => changeData("description", value)}></CustomTextarea>
+						</div>
+						<div css={style.separator}></div>
+						<div css={{ display: "flex", gap: "10px", marginTop: "20px", alignItems: "center" }}>
+							<p css={style.subTitle}>Status</p>
+							<div>
+								<CustomSelect value={currentData.status} data={statusData} onChange={(value) => changeData("status", value)}></CustomSelect>
+							</div>
+						</div>
+						<div css={{ display: "flex", gap: "10px", marginTop: "20px", alignItems: "center" }}>
+							<p css={style.subTitle}>Priority</p>
+							<CustomSelect value={currentData.priority} data={priorityData} onChange={(value) => changeData("priority", value)}></CustomSelect>
+						</div>
+						<div css={style.separator}></div>
+						<div css={style.subTasks}>
+							<SubTasks data={currentData.subTasks} onChange={(value) => changeData("subTasks", value)}></SubTasks>
+						</div>
+						{data ? <div css={style.date}>Create: {new Date(data.createDate).toLocaleDateString()}</div> : null}
 					</div>
 				</div>
 			</div>

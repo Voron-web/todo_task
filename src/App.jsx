@@ -17,6 +17,7 @@ function App() {
 			minHeight: "100vh",
 			background: `${theme.bg}`,
 			overflowX: "hidden",
+			overflowY: "auto",
 			paddingBottom: "30px",
 		}),
 		baseBlock: css({

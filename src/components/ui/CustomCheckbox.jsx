@@ -27,7 +27,6 @@ const CustomCheckbox = ({ id, data, onChange }) => {
 			width: "30px",
 			height: "30px",
 			border: `${theme.border}`,
-			borderRadius: "3px",
 			cursor: "pointer",
 			borderRadius: "7px",
 			boxShadow: `${theme.boxShadow}`,

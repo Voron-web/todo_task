@@ -84,6 +84,18 @@ const ListItem = ({ task, onClick }) => {
 			borderRadius: "24px",
 			...statusStyle[task.status],
 		}),
+		subTasks: css({
+			display: "flex",
+			flexDirection: "column",
+			gap: "3px",
+			fontSize: "18px",
+			fontWeight: 600,
+		}),
+
+		done: css({
+			textDecoration: "line-through",
+			opacity: 0.5,
+		}),
 	};
 
 	return (
@@ -107,6 +119,15 @@ const ListItem = ({ task, onClick }) => {
 			) : (
 				""
 			)}
+			{setting.listItem.showSubTask ? (
+				<div css={style.subTasks}>
+					{task.length !== 0
+						? task.subTasks.map((item, index) => {
+								return <div css={item.enable ? style.done : ""}>{item.title}</div>;
+						  })
+						: null}
+				</div>
+			) : null}
 		</div>
 	);
 };
